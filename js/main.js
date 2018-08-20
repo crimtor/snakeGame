@@ -1,5 +1,5 @@
 window.onload=function() {
-    canv=document.getElementById("gc");
+    canv=document.getElementById("game_area");
     ctx=canv.getContext("2d");
     document.addEventListener("keydown", keyPush);
     setInterval(game,1000/15);
@@ -44,10 +44,15 @@ function game() {
     ctx.fillRect(0,0,canv.width,canv.height);
 
     ctx.fillStyle="lime";
-    for(let i=0;i<tailLength.length;i++) {
+    ctx.drawImage(snake, snakeX*tileWidth, snakeY*tileHeight);
+    for(let i=1;i<tailLength.length;i++) {
         ctx.fillRect(tailLength[i].x*tileWidth,tailLength[i].y*tileHeight,tileWidth-2,tileHeight-2);
         if(tailLength[i].x==snakeX && tailLength[i].y==snakeY) {
           tail = 3;
+        }
+        if (tailLength[i].x==snakeX && tailLength[i].y==snakeY && direction != '') {
+          tail = 3;
+          dead.play();
         }
     }
     tailLength.push({x:snakeX,y:snakeY});
